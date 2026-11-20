@@ -29,15 +29,42 @@
   --co-danger-bg: #fcedef;
 
   --co-sidebar: 224px;
-  --co-radius-lg: 12px;
-  --co-radius-md: 8px;
-  --co-radius-sm: 7px;
+  --co-radius-lg: 16px;
+  --co-radius-md: 10px;
+  --co-radius-sm: 8px;
+  --co-radius-xs: 7px;
   --co-title: 20px;
   --co-h2: 15px;
   --co-text-base: 13.5px;
   --co-text-sm: 12px;
-  --co-shadow-card: 0 1px 2px rgba(18, 24, 21, 0.03), 0 0 0 1px var(--co-line);
-  --co-shadow-dialog: 0 24px 64px rgba(18, 24, 21, 0.18);
+  --co-shadow-card: 0 1px 2px rgba(18, 24, 21, 0.035), 0 0 0 1px var(--co-line);
+  --co-shadow-dialog: 0 24px 64px rgba(18, 24, 21, 0.18), 0 0 0 1px rgba(24, 31, 28, 0.08);
+
+  /* VibeDesign 011: 按角色分配的动效曲线与时长 token（淘汰默认 ease） */
+  --ease-out: cubic-bezier(0, 0, 0.58, 1);
+  --ease-out-strong: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.42, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-press: 120ms;
+  --dur-shadow: 140ms;
+  --dur-sm: 180ms;
+  --dur-md: 260ms;
+
+  /* VibeDesign 001: 正上方统一光源 · 五层微拟物按键阴影 token（层数一致保证平滑过渡） */
+  --btn-sec-bg: linear-gradient(180deg, #ffffff 0%, #f6f5f1 100%);
+  --btn-sec-bg-hover: linear-gradient(180deg, #ffffff 0%, #faf9f6 100%);
+  --btn-sec-bg-active: linear-gradient(180deg, #efeee9 0%, #f6f5f1 100%);
+  --btn-sec-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92), inset 0 -1px 0 rgba(24, 31, 28, 0.06), 0 1px 1px rgba(18, 24, 21, 0.06), 0 2px 4px -1px rgba(18, 24, 21, 0.05);
+  --btn-sec-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, 0.96), inset 0 -1px 0 rgba(24, 31, 28, 0.08), 0 1px 2px rgba(18, 24, 21, 0.08), 0 4px 8px -2px rgba(18, 24, 21, 0.08);
+  --btn-sec-shadow-active: inset 0 1.5px 2.5px rgba(24, 31, 28, 0.12), inset 0 -1px 0 rgba(255, 255, 255, 0.6), 0 0 0 rgba(18, 24, 21, 0), 0 1px 1px rgba(18, 24, 21, 0.04);
+
+  --btn-pri-bg: linear-gradient(180deg, #225f4d 0%, #18493b 100%);
+  --btn-pri-bg-hover: linear-gradient(180deg, #276a56 0%, #1b5242 100%);
+  --btn-pri-bg-active: linear-gradient(180deg, #133c30 0%, #1a4e3f 100%);
+  --btn-pri-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(0, 0, 0, 0.24), 0 1px 1px rgba(18, 24, 21, 0.16), 0 3px 6px -1px rgba(18, 24, 21, 0.14);
+  --btn-pri-shadow-hover: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(0, 0, 0, 0.26), 0 2px 3px rgba(18, 24, 21, 0.18), 0 6px 12px -2px rgba(18, 24, 21, 0.18);
+  --btn-pri-shadow-active: inset 0 1.5px 3px rgba(0, 0, 0, 0.32), inset 0 -1px 0 rgba(255, 255, 255, 0.10), 0 0 0 rgba(18, 24, 21, 0), 0 1px 1px rgba(18, 24, 21, 0.10);
 }
 
 body {
@@ -252,6 +279,7 @@ h3, .dir-todo h3, .nw-resident h3, .aw-activity h3 {
   border-radius: var(--co-radius-sm);
   border: 1px solid transparent;
   background: transparent;
+  box-shadow: none;
   color: #4a544f;
   font-size: var(--co-text-base);
   font-weight: 500;
@@ -413,7 +441,7 @@ h3, .dir-todo h3, .nw-resident h3, .aw-activity h3 {
   opacity: 0.8;
 }
 
-/* 5. 分段式导航轨道（Segmented Control Track） */
+/* 5. 分段式导航轨道（Segmented Control Track · 等距内缩圆角 10px - 3px = 7px） */
 .dept-tabs,
 .dept-logistics-home .dept-tabs,
 .sw-nav,
@@ -433,8 +461,10 @@ h3, .dir-todo h3, .nw-resident h3, .aw-activity h3 {
   gap: 2px;
   margin: 0 0 18px;
   background: var(--co-well);
-  border: 1px solid rgba(24, 31, 28, 0.06);
-  border-radius: 9px;
+  border: 1px solid rgba(24, 31, 28, 0.07);
+  border-radius: var(--co-radius-md);
+  corner-shape: superellipse(1.25);
+  box-shadow: inset 0 1px 2px rgba(24, 31, 28, 0.05);
 }
 
 .dept-tabs:has(> button:only-child) {
@@ -512,43 +542,59 @@ h3, .dir-todo h3, .nw-resident h3, .aw-activity h3 {
   border-radius: 1px;
 }
 
-/* 6. 控件质感与组块化封装（柔化硬边框，主次拉开） */
+/* 6. 控件质感与组块化封装（VibeDesign 001 五层微拟物按键 + 004 连续曲率圆角） */
 button {
   min-height: 32px;
   padding: 6px 12px;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 520;
   border-radius: var(--co-radius-sm);
-  border: 1px solid var(--co-line-strong);
-  background: var(--co-surface);
+  corner-shape: superellipse(1.25);
+  border: 1px solid rgba(24, 31, 28, 0.15);
+  background: var(--btn-sec-bg);
   color: var(--co-fg);
-  box-shadow: 0 1px 1px rgba(18, 24, 21, 0.025);
+  box-shadow: var(--btn-sec-shadow);
+  cursor: pointer;
 }
 
 button.small {
   min-height: 28px;
   padding: 4px 10px;
   font-size: var(--co-text-sm);
+  border-radius: var(--co-radius-xs);
 }
 
 button.primary {
-  background: var(--co-primary);
-  border-color: var(--co-primary);
+  background: var(--btn-pri-bg);
+  border-color: #133b2f;
   color: #ffffff;
   font-weight: 560;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 1px 2px rgba(18, 24, 21, 0.08);
+  box-shadow: var(--btn-pri-shadow);
 }
 
-/* 表格和列表内次级按钮去硬框化，只留柔和浅底，大幅降低页面视觉噪音 */
+/* 表格和列表内次级按钮去硬框化，只留柔和浅底与轻按压反馈 */
 td button:not(.primary):not(.link),
 .nw-task button:not(.primary),
 .aw-activity button:not(.primary),
 .sw-item button:not(.primary),
 .nw-focus button:not(.primary) {
-  background: var(--co-secondary);
-  border-color: transparent;
-  box-shadow: none;
-  color: #2f3834;
+  background: linear-gradient(180deg, #f6f5f1 0%, #eeede8 100%);
+  border-color: rgba(24, 31, 28, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 0 rgba(24, 31, 28, 0.04), 0 1px 1px rgba(18, 24, 21, 0.03), 0 0 0 rgba(18, 24, 21, 0);
+  color: #2c3531;
+}
+
+/* 第 8 模块适老化朱红主按钮：保留 #C92B27 规范色，补足顶部高光与 1px 按压手感 */
+.portal-primary-cta {
+  background: linear-gradient(180deg, #d73531 0%, #c12521 100%);
+  border-color: #9f1d1a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), inset 0 -1px 0 rgba(0, 0, 0, 0.22), 0 1px 2px rgba(48, 37, 31, 0.16), 0 4px 10px -2px rgba(201, 43, 39, 0.22);
+}
+
+.portal-primary-cta:active:not(:disabled) {
+  transform: translateY(1px);
+  background: linear-gradient(180deg, #ad1f1b 0%, #c62824 100%);
+  box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.28), inset 0 -1px 0 rgba(255, 255, 255, 0.12), 0 0 0 rgba(0, 0, 0, 0), 0 1px 1px rgba(48, 37, 31, 0.12);
 }
 
 .ui-toolbar,
@@ -612,17 +658,25 @@ td button:not(.primary):not(.link),
   border-inline-start: 1px solid var(--co-line-strong);
 }
 
-/* 7. 面板与内部子区块：大呼吸留白 + 去嵌套硬框 */
+/* 7. 面板与内部子区块：大呼吸留白 + 去嵌套硬框 + 连续曲率圆角 */
 .panel,
 .dir-region,
 .dept-v2-stat,
-.stat {
+.stat,
+.login-card {
   background: var(--co-surface);
   border: 1px solid var(--co-line);
   border-radius: var(--co-radius-lg);
+  corner-shape: superellipse(1.25);
   padding: 20px 22px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 2px rgba(18, 24, 21, 0.025);
+  box-shadow: var(--co-shadow-card);
+}
+
+.login-card {
+  padding: 28px 30px;
+  margin-bottom: 0;
+  box-shadow: 0 12px 36px rgba(18, 24, 21, 0.06), 0 0 0 1px var(--co-line);
 }
 
 .dept-v2-stat strong,
@@ -885,20 +939,113 @@ td {
   margin: 0;
 }
 
-/* 交互动效与媒体查询保护 */
+/* 交互动效与媒体查询保护（VibeDesign 001 按压物理反馈 + 011 语义化曲线 + 016 柔焦 Toast） */
+@keyframes co-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes co-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#toast:not([hidden]) {
+  border-radius: var(--co-radius-md);
+  corner-shape: superellipse(1.25);
+  box-shadow: 0 12px 32px rgba(18, 24, 21, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  animation: co-toast-in 320ms var(--ease-out-strong) both;
+}
+
+dialog {
+  border-radius: var(--co-radius-lg);
+  corner-shape: superellipse(1.25);
+  box-shadow: var(--co-shadow-dialog);
+}
+
+dialog[open] {
+  animation: co-dialog-in var(--dur-md) var(--ease-out-strong) both;
+}
+
+dialog::backdrop {
+  background: rgba(18, 24, 21, 0.34);
+  backdrop-filter: blur(4px);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+  background: var(--btn-sec-bg-active);
+  box-shadow: var(--btn-sec-shadow-active);
+}
+
+button.primary:active:not(:disabled) {
+  transform: translateY(1px);
+  background: var(--btn-pri-bg-active);
+  box-shadow: var(--btn-pri-shadow-active);
+}
+
+td button:not(.primary):not(.link):active:not(:disabled),
+.nw-task button:not(.primary):active:not(:disabled),
+.aw-activity button:not(.primary):active:not(:disabled),
+.sw-item button:not(.primary):active:not(:disabled),
+.nw-focus button:not(.primary):active:not(:disabled),
+.dir-quick-nav button:active:not(:disabled),
+.sw-needs button:active:not(:disabled),
+.aw-needs button:active:not(:disabled),
+.login-role-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  background: #e7e6e0;
+  box-shadow: inset 0 1.5px 2px rgba(24, 31, 28, 0.10), inset 0 -1px 0 rgba(255, 255, 255, 0.5), 0 0 0 transparent, 0 0 0 transparent;
+}
+
+.dept-shell .sidebar nav button:active:not(:disabled),
+.portal-nav-entry button:active:not(:disabled),
+.dept-tabs button:active:not(:disabled),
+.sw-nav button:active:not(:disabled),
+.nw-nav button:active:not(:disabled),
+.aw-nav button:active:not(:disabled),
+.dir-tabs button:active:not(:disabled) {
+  transform: translateY(0.5px);
+}
+
 @media (hover: hover) {
   button:hover:not(:disabled) {
-    background: var(--co-secondary);
-    border-color: var(--co-control);
+    background: var(--btn-sec-bg-hover);
+    border-color: rgba(24, 31, 28, 0.22);
+    box-shadow: var(--btn-sec-shadow-hover);
   }
   button.primary:hover:not(:disabled) {
-    background: var(--co-primary-hover);
-    border-color: var(--co-primary-hover);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    background: var(--btn-pri-bg-hover);
+    border-color: #103328;
+    box-shadow: var(--btn-pri-shadow-hover);
+  }
+  td button:not(.primary):not(.link):hover:not(:disabled),
+  .nw-task button:not(.primary):hover:not(:disabled),
+  .aw-activity button:not(.primary):hover:not(:disabled),
+  .sw-item button:not(.primary):hover:not(:disabled),
+  .nw-focus button:not(.primary):hover:not(:disabled) {
+    background: linear-gradient(180deg, #faf9f6 0%, #f0efe9 100%);
+    border-color: rgba(24, 31, 28, 0.14);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -1px 0 rgba(24, 31, 28, 0.05), 0 1px 2px rgba(18, 24, 21, 0.05), 0 2px 4px -1px rgba(18, 24, 21, 0.04);
   }
   .portal-primary-cta:hover:not(:disabled) {
-    background: #b12420;
-    border-color: #b12420;
+    background: linear-gradient(180deg, #de3b37 0%, #b7221e 100%);
+    border-color: #931a17;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -1px 0 rgba(0, 0, 0, 0.24), 0 2px 3px rgba(48, 37, 31, 0.18), 0 6px 14px -2px rgba(201, 43, 39, 0.28);
   }
   .portal-outline-btn:hover:not(:disabled) {
     background: #efe8dc;
@@ -906,11 +1053,13 @@ td {
   }
   .ui-btn-group > button:hover:not(:disabled):not(.active):not(.primary) {
     background: #f7f7f4;
+    box-shadow: none;
   }
   .dept-shell .sidebar nav button:hover:not(.active),
   .portal-nav-entry button:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.68);
     color: var(--co-fg);
+    box-shadow: none;
   }
   tbody tr:hover td {
     background: #fafaf7;
@@ -920,6 +1069,8 @@ td {
   .aw-needs button:hover,
   .login-role-btn:hover {
     background: #ecebe5;
+    border-color: rgba(24, 31, 28, 0.12);
+    box-shadow: 0 2px 6px rgba(18, 24, 21, 0.05);
   }
   .ui-environment > summary:hover,
   .ui-source-details > summary:hover {
@@ -931,8 +1082,33 @@ td {
   button,
   .chip,
   .dir-quick-nav button,
+  .sw-needs button,
+  .aw-needs button,
   .login-role-btn {
-    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+    transition:
+      transform var(--dur-press) var(--ease-out-strong),
+      box-shadow var(--dur-shadow) var(--ease-out-strong),
+      background-color var(--dur-press) var(--ease-out),
+      border-color var(--dur-press) var(--ease-out),
+      color var(--dur-press) var(--ease-out);
+  }
+  .dept-shell .sidebar nav button.active::before,
+  .portal-nav-entry button.active::before {
+    animation: co-dialog-in 200ms var(--ease-overshoot) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #toast:not([hidden]),
+  dialog[open],
+  .dept-shell .sidebar nav button.active::before,
+  .portal-nav-entry button.active::before {
+    animation: none;
+  }
+  button:active:not(:disabled),
+  button.primary:active:not(:disabled),
+  .portal-primary-cta:active:not(:disabled) {
+    transform: none;
   }
 }
 
