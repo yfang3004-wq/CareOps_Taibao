@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: careops-qiyun-demo
+    runtime: docker
+    plan: free
+    healthCheckPath: /healthz
+    envVars:
+      - key: CAREOPS_ALLOW_CLOUD_DEMO
+        value: "1"
+      - key: CAREOPS_DATA_DIR
+        value: /tmp/careops-taibao-data

@@ -1,0 +1,185 @@
+/* CareOps UI V2 · 纯呈现层。与 V1 Design Tokens 共用，不变更任何业务语义。 */
+:root {
+  --co-v2-divider: #e6ebe8;
+  --co-v2-tint: #f4f7f5;
+  --co-v2-subtle: #687771;
+  --co-v2-row: 44px;
+}
+
+/* 活动部：今日执行—待补事项—本周概况，减少空卡高度和嵌套卡片。 */
+.aw-nav {
+  padding: 4px;
+  margin-bottom: 16px;
+  background: var(--co-v2-tint);
+  border-radius: var(--co-radius-md);
+  gap: 3px;
+}
+.aw-nav button {
+  border-radius: var(--co-radius-sm);
+  min-height: 38px;
+  font-size: 13px;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--co-muted);
+}
+.aw-nav button.active {
+  border-color: var(--co-line);
+  background: var(--co-surface);
+  color: var(--co-primary);
+  font-weight: 650;
+}
+.aw-home-grid { align-items: start; gap: 14px; }
+.aw-home-grid > .panel { margin: 0; min-height: 0; padding: 18px 20px; }
+.aw-activity { padding: 12px 0; gap: 12px; }
+.aw-activity h3 { font-size: var(--co-text-base); font-weight: 650; }
+.aw-activity .sub { font-size: var(--co-text-sm); line-height: 1.5; }
+.aw-needs { margin: 10px 0 2px; gap: 6px; align-items: start; }
+.aw-needs button { text-align: left; min-height: 36px; background: transparent; border-color: var(--co-line); color: var(--co-primary); }
+.aw-needs button:hover { background: var(--co-v2-tint); }
+.aw-needs .aw-clear { color: var(--co-muted); font-size: 13px; margin: 7px 0 9px; }
+.aw-needs + .sub { margin: 12px 0 0; line-height: 1.6; font-size: 11px; }
+.aw-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 12px 0 8px; gap: 8px 12px; }
+.aw-stats > div { min-width: 0; padding: 5px 0 9px; border-bottom: 1px solid var(--co-v2-divider); }
+.aw-stats dt { font-size: 11px; line-height: 1.5; color: var(--co-v2-subtle); }
+.aw-stats dd { font-size: 21px; line-height: 1.35; font-weight: 650; margin: 2px 0; color: var(--co-fg); }
+.aw-home-grid > .panel > .sub { margin: 7px 0; font-size: 11px; }
+
+/* 活动周历：七列一直表示一周，中间视口局部滚动，不分成“4天+3天”。 */
+.aw-calendar-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-gutter: stable; }
+.aw-calendar-scroll:focus-visible { outline: 2px solid var(--co-primary); outline-offset: 2px; }
+.aw-calendar { grid-template-columns: repeat(7, minmax(126px, 1fr)); min-width: 910px; gap: 1px; background: var(--co-v2-divider); border: 1px solid var(--co-v2-divider); border-radius: var(--co-radius-md); overflow: hidden; }
+.aw-day { min-width: 0; min-height: 132px; padding: 10px; border: 0; border-radius: 0; background: var(--co-surface); }
+.aw-day.today { border: 0; box-shadow: inset 0 3px 0 var(--co-primary); background: var(--co-v2-tint); }
+.aw-day h3 { font-size: 12px; font-weight: 650; margin: 0 0 10px; padding: 0 0 8px; }
+.aw-calendar-item { padding: 10px 0; line-height: 1.4; }
+.aw-calendar-item strong { color: var(--co-primary); font-size: 12px; }
+.aw-calendar-item p { overflow-wrap: anywhere; }
+.aw-calendar-item button { padding: 6px 8px; min-height: 32px; white-space: normal; }
+.aw-calendar-item .chip { font-size: 11px; }
+.aw-filter { align-items: end; gap: 10px; }
+.aw-filter label { min-width: 0; flex: 1 1 150px; }
+.aw-filter input, .aw-filter select { min-width: 0; max-width: 100%; width: 100%; border-color: var(--co-line); }
+.aw-check-person { min-height: var(--co-v2-row); }
+.aw-check-person:hover { background: var(--co-v2-tint); }
+.aw-photos { gap: 10px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.aw-photos article { padding: 0 0 10px; border-bottom: 1px solid var(--co-v2-divider); }
+.aw-photos img { height: 138px; border: 1px solid var(--co-line); background: var(--co-v2-tint); }
+
+/* 护士站：关注/异常优先，右侧才是执行数量；不要复制护理员的老人卡布局。 */
+.nw-station-grid { grid-template-columns: minmax(0, 1.55fr) minmax(275px, 0.95fr); gap: 14px; align-items: start; }
+.nw-station-grid > .panel { margin: 0; min-width: 0; min-height: 0; padding: 17px 20px; }
+.nw-station-grid > .panel h2 { font-size: 16px; margin: 0 0 12px; line-height: 1.5; }
+.nw-station-priority { grid-column: 1; }
+.nw-station-progress { grid-column: 2; }
+.nw-station-actions { grid-column: 1; }
+.nw-station-handover { grid-column: 2; }
+.nw-station-priority .nw-focus { border: 0; border-bottom: 1px solid var(--co-v2-divider); padding: 12px 0; margin: 0; background: transparent; }
+.nw-station-priority .nw-focus:last-child { border-bottom: 0; padding-bottom: 2px; }
+.nw-station-priority .nw-focus h3 { font-size: 14px; line-height: 1.5; }
+.nw-station-priority .nw-focus .sub { font-size: 11px; line-height: 1.6; }
+.nw-station-priority .nw-focus button { margin-top: 6px; }
+.nw-station-progress .nw-counts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; margin: 10px 0 16px; }
+.nw-station-progress .nw-counts span { display: flex; flex-direction: column; min-width: 0; padding: 10px 8px; border-radius: var(--co-radius-sm); background: var(--co-v2-tint); font-size: 11px; color: var(--co-muted); }
+.nw-station-progress .nw-counts strong { margin: 2px 0 0; font-size: 22px; color: var(--co-fg); }
+.nw-station-actions .actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; align-items: stretch; }
+.nw-station-actions .actions button { min-width: 0; white-space: normal; text-align: left; padding: 10px; line-height: 1.5; font-size: 12px; }
+.nw-station-actions h3 { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--co-v2-divider); font-size: 13px; }
+.nw-station-handover p { margin-bottom: 10px; }
+.nw-station-grid .sub { line-height: 1.55; font-size: 11px; }
+
+/* 后勤：维修、保洁、食谱、采购、供餐组成一个部门，不是五个通用大卡空壳。 */
+.dept-logistics-home .dept-tabs { padding: 4px; margin: 0 0 15px; border-radius: var(--co-radius-md); background: var(--co-v2-tint); gap: 4px; }
+.dept-logistics-home .dept-tabs button { border-radius: var(--co-radius-sm); background: transparent; border-color: transparent; min-height: 38px; padding: 8px 12px; font-size: 13px; }
+.dept-logistics-home .dept-tabs button.active { background: var(--co-surface); color: var(--co-primary); border-color: var(--co-line); }
+.dept-workspace-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 8px 0 18px; }
+.dept-workspace-head h2 { font-size: 18px; margin: 0; }
+.dept-eyebrow { font-size: 11px; color: var(--co-muted); letter-spacing: .02em; margin: 0 0 3px; }
+.dept-logistics-modules { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; align-items: start; }
+.dept-shell .dept-logistics-modules .dept-module { min-height: 0; padding: 18px; background: var(--co-surface); border: 1px solid var(--co-line); border-radius: var(--co-radius-md); box-shadow: none; gap: 0; }
+.dept-module-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px; justify-content: space-between; }
+.dept-module-top h3 { font-size: 16px; font-weight: 650; margin: 0; }
+.dept-module-count { color: var(--co-muted); font-size: 11px; white-space: nowrap; }
+.dept-module-pending { color: var(--co-primary); font-size: 13px; margin: 10px 0; }
+.dept-module-preview { width: 100%; padding: 9px 0; border-top: 1px solid var(--co-v2-divider); min-height: 40px; color: var(--co-muted); font-size: 12px; }
+.dept-module-preview ul { padding: 0; margin: 0; list-style: none; }
+.dept-module-preview li { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 4px 0; overflow-wrap: anywhere; }
+.dept-module-preview li small { color: var(--co-v2-subtle); white-space: nowrap; }
+.dept-module-preview p { margin: 0; }
+.dept-module-empty .dept-module-footer { padding-top: 10px; }
+.dept-module-footer { width: 100%; display: flex; justify-content: flex-start; padding-top: 8px; }
+.dept-module-footer button { font-size: 12px; }
+.dept-operation-panel .panel-head { gap: 12px; align-items: flex-start; }
+.dept-operation-panel .panel-head h2 { font-size: 18px; }
+.dept-operation-panel .dept-filter { padding: 12px 0 16px; margin: 6px 0 10px; gap: 10px; border-bottom: 1px solid var(--co-v2-divider); }
+.dept-operation-panel .table-wrap { margin-top: 4px; }
+.dept-operation-panel table { font-size: 12px; }
+.dept-operation-panel th, .dept-operation-panel td { padding: 11px 10px; }
+
+@media (max-width: 1100px) {
+  .dept-logistics-modules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nw-station-grid { grid-template-columns: minmax(0, 1.3fr) minmax(260px, 1fr); }
+  .aw-calendar { grid-template-columns: repeat(7, minmax(130px, 1fr)); min-width: 975px; }
+}
+.dir-ccrc-zones { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 10px 0 6px; }
+.dir-zone-pill { border: 1px solid var(--co-line, #dce3de); border-radius: 8px; padding: 8px 10px; background: var(--co-v2-tint, #f6faf8); }
+.dir-zone-pill strong { display: block; font-size: 12px; color: var(--co-primary, #245b52); margin-bottom: 2px; }
+.dir-zone-pill span { font-size: 12px; color: var(--co-muted, #58675f); }
+.dept-v2-clinical-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+.dept-v2-stat { padding: 14px 16px; }
+.dept-v2-stat strong { display: block; font-size: 24px; line-height: 1.2; color: var(--co-primary, #245b52); margin: 4px 0; }
+.portal-nav-entry { margin: 4px 0 12px; }
+.portal-nav-entry button { width: 100%; justify-content: flex-start; text-align: left; }
+
+@media (max-width: 767px) {
+  .dir-ccrc-zones, .dept-v2-clinical-grid { grid-template-columns: 1fr; }
+  .aw-nav { display: flex; flex-wrap: nowrap; gap: 2px; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; }
+  .aw-nav button { flex: none; min-width: 88px; min-height: 44px; }
+  .aw-home-grid { grid-template-columns: 1fr; gap: 12px; }
+  .aw-home-grid > .panel { padding: 14px; }
+  .aw-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .aw-calendar { grid-template-columns: 1fr; min-width: 0; gap: 0; }
+  .aw-calendar-scroll { overflow-x: visible; }
+  .aw-day { min-height: 0; border-bottom: 1px solid var(--co-v2-divider); padding: 13px; }
+  .aw-day h3 small { display: inline; margin-left: 8px; }
+  .aw-calendar-item { display: grid; grid-template-columns: minmax(64px, auto) minmax(0, 1fr); gap: 4px 10px; }
+  .aw-calendar-item strong { grid-column: 1; grid-row: 1 / span 2; }
+  .aw-calendar-item h4, .aw-calendar-item p, .aw-calendar-item .chip, .aw-calendar-item button { grid-column: 2; min-width: 0; }
+  .aw-calendar-item h4 { margin: 0; }
+  .aw-calendar-item button { width: max-content; max-width: 100%; min-height: 44px; }
+  .aw-photos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .aw-photos img { height: 124px; }
+  .nw-station-grid { grid-template-columns: 1fr; gap: 12px; }
+  .nw-station-grid > .panel { grid-column: 1; padding: 14px; }
+  .nw-station-progress { grid-row: auto; }
+  .nw-station-actions .actions { grid-template-columns: 1fr; }
+  .nw-station-progress .nw-counts { gap: 5px; }
+  .dept-logistics-modules { grid-template-columns: 1fr; gap: 10px; }
+  .dept-workspace-head { align-items: flex-start; flex-direction: column; gap: 0; }
+  .dept-logistics-home .dept-tabs { flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-inline: contain; }
+  .dept-logistics-home .dept-tabs button { flex: none; min-height: 44px; }
+  .dept-shell .dept-logistics-modules .dept-module { padding: 15px; }
+  .dept-operation-panel .panel-head { flex-direction: column; }
+  .dept-operation-panel .dept-filter label { min-width: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aw-calendar-scroll { scroll-behavior: auto; }
+}
+
+/* 公共维修：四个外显状态（旧审批、复核、暂停记录只出现在详情）。 */
+.repair-stages { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;padding:0;margin:14px 0 16px;list-style:none;border:1px solid var(--co-line,var(--line));border-radius:9px;overflow:hidden; }
+.repair-stage {display:flex;align-items:center;justify-content:center;gap:9px;min-width:0;padding:12px 5px;font-size:12px;color:var(--co-muted,var(--muted));border-right:1px solid var(--co-line,var(--line));background:var(--co-surface,var(--paper));}
+.repair-stage:last-child {border:0}
+.repair-stage.is-past {color:var(--co-primary,var(--brand));background:var(--co-v2-tint,var(--soft));}
+.repair-stage.is-current {font-weight:700;color:var(--co-primary,var(--brand));background:#eaf3ee;box-shadow:inset 0 -3px 0 var(--co-primary,var(--brand));}
+.repair-stage-num {display:inline-grid;place-items:center;width:21px;height:21px;border:1px solid currentColor;border-radius:50%;flex:none;font-size:11px}
+.repair-stage-note {font-size:12px;color:var(--co-v2-subtle,var(--muted));margin:7px 0 13px}
+.repair-status-pill {display:inline-block;white-space:nowrap;padding:3px 9px;border-radius:5px;font-size:12px;background:var(--co-v2-tint,var(--soft));color:var(--co-primary,var(--brand));font-weight:600;}
+.repair-status-pill[data-stage="inspect"]{background:#fff4dc;color:#7a5418}
+.repair-status-pill[data-stage="done"]{background:#e8f2ec;color:#275b45}
+.repair-status-pill[data-stage="todo"]{background:#f0f1f0;color:#495952}
+.repair-stage-summary {display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.repair-stage-summary .repair-status-pill {padding:6px 9px}
+.repair-extra-details {margin-top:14px;border-top:1px solid var(--co-line,var(--line));padding-top:8px}
+.repair-extra-details > summary{font-weight:600;font-size:12px;color:var(--co-muted,var(--muted));cursor:pointer}
+@media(max-width:700px){.repair-stages{gap:0}.repair-stage{gap:4px;padding:8px 2px;flex-direction:column;text-align:center;font-size:11px}.repair-stage-num{width:19px;height:19px}}

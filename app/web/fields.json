@@ -1,0 +1,1332 @@
+{
+  "scope": "实际业务表字段；流程扩展集合另见DATA_CONTRACT.md",
+  "version": "0.3.0-candidate",
+  "schemas": [
+    {
+      "id": "residents",
+      "name": "长者主档",
+      "idKey": "resident_id",
+      "dept": "照护与社工",
+      "grain": "一行＝一位长者（在同一机构中唯一）",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": "所有关联都限定在同一机构；不用姓名自动合并。"
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "display_name",
+          "label": "姓名",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": "Demo使用合成称呼；不以姓名自动合并主档。"
+        },
+        {
+          "key": "sex",
+          "label": "性别",
+          "type": "enum",
+          "required": false,
+          "values": [
+            "男",
+            "女",
+            "其他",
+            "待确认"
+          ],
+          "description": "未知可留空。"
+        },
+        {
+          "key": "age",
+          "label": "年龄",
+          "type": "number",
+          "required": false,
+          "values": [],
+          "description": "0至130整数；不从身份证推算。"
+        },
+        {
+          "key": "id_number",
+          "label": "身份证号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": "仅格式校验；Demo使用合成编号，授权人员可查看。"
+        },
+        {
+          "key": "birthplace",
+          "label": "出生地",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "household_location",
+          "label": "户口地",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "former_occupation",
+          "label": "退休前职业",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "care_level",
+          "label": "护理等级",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": "机构自定义，仅登记已确认结果。"
+        },
+        {
+          "key": "dementia_status",
+          "label": "是否认知症",
+          "type": "enum",
+          "required": false,
+          "values": [
+            "是",
+            "否",
+            "待确认"
+          ],
+          "description": "不自动诊断；未知可空。"
+        },
+        {
+          "key": "guardian_name",
+          "label": "监护人姓名",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "guardian_phone",
+          "label": "监护人电话",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": "支持座机、国际电话与分机；不验证可达性。"
+        },
+        {
+          "key": "unit",
+          "label": "照料区",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "bed",
+          "label": "当前床号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "what_matters",
+          "label": "本人目标与偏好",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "support",
+          "label": "沟通与参与支持",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "note",
+          "label": "备注",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "stays",
+      "name": "在院状态区间",
+      "idKey": "stay_id",
+      "dept": "运营",
+      "grain": "一行＝一位长者的一段连续状态；开始日含、结束日不含",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": "所有关联都限定在同一机构；不用姓名自动合并。"
+        },
+        {
+          "key": "stay_id",
+          "label": "区间编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "start_date",
+          "label": "开始日期",
+          "type": "date",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "end_date",
+          "label": "结束日期",
+          "type": "date",
+          "required": false,
+          "values": [],
+          "description": "结束日不计入本区间；空白表示仍持续。"
+        },
+        {
+          "key": "status",
+          "label": "在院状态",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "在院",
+            "外出",
+            "外院"
+          ],
+          "description": ""
+        },
+        {
+          "key": "unit",
+          "label": "照料区",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "source_ref",
+          "label": "资料引用",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "assessments",
+      "name": "评估结果登记",
+      "idKey": "assessment_id",
+      "dept": "照护",
+      "grain": "一行＝一位长者使用一种指定版本工具的一次评估结果",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": "所有关联都限定在同一机构；不用姓名自动合并。"
+        },
+        {
+          "key": "assessment_id",
+          "label": "评估编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "assessed_at",
+          "label": "评估时间",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "tool_name",
+          "label": "工具名称",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "tool_version",
+          "label": "工具版本",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "score",
+          "label": "原始总分",
+          "type": "number",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "conclusion",
+          "label": "专业评估结论",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "assessor",
+          "label": "评估人员",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "review_due",
+          "label": "计划复评日期",
+          "type": "date",
+          "required": false,
+          "values": [],
+          "description": "由机构确认；本工具不设置临床或法定默认周期。"
+        },
+        {
+          "key": "source_ref",
+          "label": "原报告引用",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "note",
+          "label": "备注",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "plans",
+      "name": "照护计划版本",
+      "idKey": "plan_id",
+      "dept": "照护与社工",
+      "grain": "一行＝一项具体照护措施的一个版本；新版本使用新编号",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": "所有关联都限定在同一机构；不用姓名自动合并。"
+        },
+        {
+          "key": "plan_id",
+          "label": "计划版本编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "assessment_id",
+          "label": "关联评估编号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "start_date",
+          "label": "生效日期",
+          "type": "date",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "end_date",
+          "label": "停止日期",
+          "type": "date",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "goal",
+          "label": "本人目标",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "measure",
+          "label": "已确认措施",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "owner",
+          "label": "跟进负责人",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "status",
+          "label": "计划状态",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "草案",
+            "已确认",
+            "已暂停",
+            "已结束"
+          ],
+          "description": ""
+        },
+        {
+          "key": "approver",
+          "label": "确认人员",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "review_due",
+          "label": "计划复核日期",
+          "type": "date",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "note",
+          "label": "备注",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "tasks",
+      "name": "执行与纠正任务",
+      "idKey": "task_id",
+      "dept": "跨部门",
+      "grain": "一行＝一项应执行任务；执行和复核分别记录",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": "所有关联都限定在同一机构；不用姓名自动合并。"
+        },
+        {
+          "key": "task_id",
+          "label": "任务编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "created_at",
+          "label": "创建时间",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "source_type",
+          "label": "来源类型",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "照护计划",
+            "安全事件",
+            "状态交接",
+            "其他",
+            "设施维修",
+            "检查整改"
+          ],
+          "description": ""
+        },
+        {
+          "key": "source_id",
+          "label": "来源编号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "title",
+          "label": "任务内容",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "dept",
+          "label": "执行部门",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "照护部",
+            "社工部",
+            "运营部",
+            "后勤部",
+            "销售部",
+            "康复部"
+          ],
+          "description": ""
+        },
+        {
+          "key": "owner",
+          "label": "跟进负责人",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "due_at",
+          "label": "约定完成时间",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": "空白表示未约定期限；不自动补造。"
+        },
+        {
+          "key": "status",
+          "label": "任务状态",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "待处理",
+            "执行中",
+            "待复核",
+            "已关闭",
+            "拒绝",
+            "暂缓",
+            "不适用",
+            "已取消"
+          ],
+          "description": ""
+        },
+        {
+          "key": "accepted_at",
+          "label": "明确接手时间",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": "仅表示在CareOps中明确开始/接手，不代表到场时间。"
+        },
+        {
+          "key": "accepted_by",
+          "label": "接手人员",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "performed_at",
+          "label": "实际完成时间",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": "仅在执行人员能够确认时登记；未知保持空白。"
+        },
+        {
+          "key": "performed_source",
+          "label": "实际完成时间来源",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "completed_at",
+          "label": "结果提交时间",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "completed_by",
+          "label": "结果提交人员",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "result",
+          "label": "执行结果或原因",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "reviewer",
+          "label": "复核人员",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "reviewed_at",
+          "label": "复核时间",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "incidents",
+      "name": "事件与险情",
+      "idKey": "event_id",
+      "dept": "照护与风控",
+      "grain": "一行＝一起事件；后续补充写入事件跟进表，不覆盖原始事实",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": "所有关联都限定在同一机构；不用姓名自动合并。"
+        },
+        {
+          "key": "event_id",
+          "label": "事件编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "occurred_at",
+          "label": "发生时间",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "reported_at",
+          "label": "登记时间",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "kind",
+          "label": "事件性质",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "已发事件",
+            "未遂险情"
+          ],
+          "description": ""
+        },
+        {
+          "key": "category",
+          "label": "事件分类",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "跌倒",
+            "坠床",
+            "噎食",
+            "食品药品误食",
+            "压力性损伤",
+            "烫伤",
+            "他伤自伤",
+            "走失",
+            "文娱活动意外",
+            "其他"
+          ],
+          "description": ""
+        },
+        {
+          "key": "location",
+          "label": "发生地点",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "description",
+          "label": "观察事实",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "harm",
+          "label": "损伤确认",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "待确认",
+            "未发现损伤",
+            "需专业处理",
+            "转外院",
+            "其他"
+          ],
+          "description": ""
+        },
+        {
+          "key": "immediate_action",
+          "label": "现场处置记录",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "reporter",
+          "label": "登记人员",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "owner",
+          "label": "跟进负责人",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "followup_due",
+          "label": "后续跟进期限",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "status",
+          "label": "事件状态",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "已登记",
+            "跟进中",
+            "待复核",
+            "已复核"
+          ],
+          "description": ""
+        },
+        {
+          "key": "reviewer",
+          "label": "复核人员",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "reviewed_at",
+          "label": "复核时间",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "handovers",
+      "name": "状态变化与交接",
+      "idKey": "handover_id",
+      "dept": "照护与社工",
+      "grain": "一行＝一位长者的一项待交接事项，不把多人写在一格",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": "所有关联都限定在同一机构；不用姓名自动合并。"
+        },
+        {
+          "key": "handover_id",
+          "label": "交接编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "created_at",
+          "label": "发现或交出时间",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "shift",
+          "label": "班次",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "sender",
+          "label": "交出人员",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "receiver",
+          "label": "指定接收人员",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "observation",
+          "label": "变化或现状",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "request",
+          "label": "待办要求",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "due_at",
+          "label": "跟进期限",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "status",
+          "label": "交接状态",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "待接收",
+            "已接收",
+            "已完成"
+          ],
+          "description": ""
+        },
+        {
+          "key": "accepted_at",
+          "label": "接收确认时间",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "outcome",
+          "label": "处理结果",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "verified_by",
+          "label": "完成确认人员",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "verified_at",
+          "label": "完成确认时间",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "followups",
+      "name": "事件后续记录",
+      "idKey": "followup_id",
+      "dept": "照护与风控",
+      "grain": "一行＝一次事件补报或效果复核，可多次追加",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": "所有关联都限定在同一机构；不用姓名自动合并。"
+        },
+        {
+          "key": "followup_id",
+          "label": "跟进编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "event_id",
+          "label": "关联事件编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "created_at",
+          "label": "记录时间",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "author",
+          "label": "记录人员",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "note",
+          "label": "补充事实与评价",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "next_action",
+          "label": "下一步安排",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "due_at",
+          "label": "下一次期限",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "workorders",
+      "name": "设施维修单",
+      "idKey": "workorder_id",
+      "dept": "后勤部",
+      "grain": "一行＝一项设施维修需求；由流程任务执行",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "workorder_id",
+          "label": "维修单编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "created_at",
+          "label": "登记时间",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "location",
+          "label": "位置",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "equipment_id",
+          "label": "设备编号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "title",
+          "label": "维修事项",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "description",
+          "label": "观察事实",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "priority",
+          "label": "人工优先级",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "普通",
+            "优先"
+          ],
+          "description": ""
+        },
+        {
+          "key": "owner",
+          "label": "负责人",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "due_at",
+          "label": "约定期限",
+          "type": "datetime",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "status",
+          "label": "办理状态",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "待处理",
+            "执行中",
+            "待复核",
+            "已关闭"
+          ],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "findings",
+      "name": "检查发现",
+      "idKey": "finding_id",
+      "dept": "运营部",
+      "grain": "一行＝一次检查中的一个问题；引用依据须人工核对",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "finding_id",
+          "label": "发现编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "created_at",
+          "label": "发现登记时间",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "inspection_ref",
+          "label": "检查记录引用",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "requirement_ref",
+          "label": "依据引用",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "location",
+          "label": "位置",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "description",
+          "label": "检查事实",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "priority",
+          "label": "人工优先级",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "普通",
+            "优先"
+          ],
+          "description": ""
+        },
+        {
+          "key": "status",
+          "label": "办理状态",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "待处理",
+            "执行中",
+            "待复核",
+            "已关闭"
+          ],
+          "description": ""
+        }
+      ]
+    },
+    {
+      "id": "corrections",
+      "name": "整改行动",
+      "idKey": "correction_id",
+      "dept": "运营部",
+      "grain": "一行＝一项针对检查发现的整改；由流程任务执行",
+      "fields": [
+        {
+          "key": "facility_id",
+          "label": "机构编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "correction_id",
+          "label": "整改编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "finding_id",
+          "label": "关联发现编号",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "resident_id",
+          "label": "长者编号",
+          "type": "text",
+          "required": false,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "created_at",
+          "label": "登记时间",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "title",
+          "label": "整改目标",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "owner",
+          "label": "负责人",
+          "type": "text",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "due_at",
+          "label": "约定期限",
+          "type": "datetime",
+          "required": true,
+          "values": [],
+          "description": ""
+        },
+        {
+          "key": "status",
+          "label": "办理状态",
+          "type": "enum",
+          "required": true,
+          "values": [
+            "待处理",
+            "执行中",
+            "待复核",
+            "已关闭"
+          ],
+          "description": ""
+        }
+      ]
+    }
+  ]
+}

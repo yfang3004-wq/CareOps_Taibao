@@ -1,0 +1,335 @@
+/* 第 8 模块：长者与家属轻协同端（390px 独立手机壳 + 内外协同对照面板）
+ * 严格遵循适老化设计规范：
+ * - 底色米白 #FAF6F0，文字深棕 #30251F，细边框 #E2D8CA，无发光渐变与 emoji 堆砌
+ * - 字号严格四档：28px（屏标题）、22px（卡片标题）、19px（正文/操作）、15px（时间戳与口径细注）
+ * - 每屏仅保留唯一一个朱红 #C92B27 主按钮，列表内一律采用深棕细线按钮，严禁叠放红按钮
+ */
+
+.portal-stage {
+  display: grid;
+  grid-template-columns: 414px minmax(280px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .portal-stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+.portal-control-bar {
+  background: #ffffff;
+  border: 1px solid #dce3de;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.portal-control-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.portal-mode-switch {
+  display: inline-flex;
+  border: 1px solid #c8d2cc;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f5f7f6;
+}
+
+.portal-mode-switch button {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 8px 14px;
+  font-weight: 600;
+  color: #364943;
+}
+
+.portal-mode-switch button.active {
+  background: #245b52;
+  color: #ffffff;
+}
+
+/* 390px 适老化手机预览壳 */
+.portal-phone-frame {
+  width: 390px;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #faf6f0;
+  color: #30251f;
+  border: 1px solid #d8cebf;
+  border-radius: 28px;
+  padding: 20px 18px 24px;
+  box-sizing: border-box;
+  font-family: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+}
+
+.portal-phone-notch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #e4dbce;
+  font-size: 15px;
+  color: #6b5b50;
+}
+
+.portal-phone-title {
+  font-size: 28px;
+  line-height: 1.28;
+  font-weight: 700;
+  color: #30251f;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.portal-phone-subtitle {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #6b5b50;
+  margin: 0 0 16px;
+}
+
+/* 手机端顶部分段导航（大触控区 >=48px，深棕细线态，不用红底） */
+.portal-subtabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.portal-subtab {
+  min-height: 48px;
+  border-radius: 14px;
+  border: 1px solid #d8cebf;
+  background: #f3ede3;
+  color: #30251f;
+  font-size: 19px;
+  font-weight: 600;
+  padding: 8px 6px;
+  cursor: pointer;
+}
+
+.portal-subtab.active {
+  background: #30251f;
+  border-color: #30251f;
+  color: #faf6f0;
+}
+
+/* 大圆角纸感卡片 */
+.portal-card {
+  background: #ffffff;
+  border: 1px solid #e4dbce;
+  border-radius: 18px;
+  padding: 18px 16px;
+  margin-bottom: 14px;
+}
+
+.portal-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #ede6dc;
+}
+
+.portal-card h3 {
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 700;
+  color: #30251f;
+  margin: 0;
+}
+
+.portal-body-text {
+  font-size: 19px;
+  line-height: 1.62;
+  color: #30251f;
+  margin: 0 0 10px;
+  white-space: pre-line;
+}
+
+.portal-meta {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #6b5b50;
+  margin: 0;
+}
+
+.portal-tag {
+  display: inline-block;
+  font-size: 15px;
+  line-height: 1.3;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #d5c9b8;
+  background: #faf6f0;
+  color: #30251f;
+  font-weight: 600;
+}
+
+/* 每屏唯一朱红 #C92B27 主按钮 */
+.portal-primary-cta {
+  display: block;
+  width: 100%;
+  min-height: 54px;
+  margin-top: 16px;
+  border-radius: 16px;
+  border: 1px solid #c92b27;
+  background: #c92b27;
+  color: #faf6f0;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.portal-primary-cta:hover {
+  background: #b12420;
+}
+
+/* 列表内克制次级按钮（严禁使用红色，避免叠放红按钮） */
+.portal-outline-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid #30251f;
+  background: #faf6f0;
+  color: #30251f;
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.portal-outline-btn[disabled] {
+  border-color: #cfc5b7;
+  color: #85766b;
+  background: #f4efe7;
+  cursor: default;
+}
+
+.portal-list-item {
+  padding: 14px 0;
+  border-top: 1px solid #ede6dc;
+}
+
+.portal-list-item:first-child {
+  padding-top: 2px;
+  border-top: 0;
+}
+
+.portal-fee-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.portal-fee-box {
+  background: #faf6f0;
+  border: 1px solid #e4dbce;
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.portal-fee-box strong {
+  display: block;
+  font-size: 22px;
+  color: #30251f;
+  margin-top: 4px;
+}
+
+.portal-photo {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e4dbce;
+  margin-top: 10px;
+  display: block;
+}
+
+.portal-stage-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.portal-stage-step {
+  text-align: center;
+  font-size: 15px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  border: 1px solid #dfd6c8;
+  color: #6b5b50;
+  background: #faf6f0;
+}
+
+.portal-stage-step.done {
+  border-color: #30251f;
+  color: #30251f;
+  font-weight: 700;
+  background: #efe7da;
+}
+
+/* 右侧院内协同契约对照说明栏 */
+.portal-inspector {
+  background: #ffffff;
+  border: 1px solid #dce3de;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.portal-inspector h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.portal-rule-list {
+  margin: 12px 0;
+  padding-left: 18px;
+  line-height: 1.65;
+  color: #2f3e39;
+}
+
+.portal-rule-list li {
+  margin-bottom: 8px;
+}
+
+/* 手机端弹窗输入同样保持大字适老尺寸 */
+.portal-form label {
+  display: block;
+  font-size: 19px;
+  font-weight: 600;
+  color: #30251f;
+  margin-bottom: 12px;
+}
+
+.portal-form input,
+.portal-form textarea {
+  width: 100%;
+  font-size: 19px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border: 1px solid #bfb3a3;
+  border-radius: 10px;
+  background: #faf6f0;
+  color: #30251f;
+  box-sizing: border-box;
+}

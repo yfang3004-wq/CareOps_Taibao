@@ -1,0 +1,13 @@
+.git
+.gitignore
+.DS_Store
+**/.DS_Store
+**/__pycache__
+**/*.pyc
+**/*.pyo
+app/.venv
+app/.venv.nosync
+runtime-taibao
+小组课程汇报交付包
+*.command
+*.log

@@ -1,0 +1,984 @@
+/* CareOps Unified Workbench Design System — Editorial Craft (Linear / Attio / @bruc3van)
+ * 视觉重构重点：
+ * 1. 去框线噪音：卡片内部分区改用柔和浅底与留白，不再层层黑框套黑框。
+ * 2. 轻盈质感控件：主操作强聚焦（深松绿 #1B4D3E + 顶部高光内描边），表格与列表操作改为柔和浅底按钮，胶囊组圆润贴合。
+ * 3. 口径/环境微链隐形化：收起灰药丸胶囊，只留极轻的淡灰小字，不切割首屏视线。
+ * 4. 严格 4 档字号：20px / 15px / 13.5px / 12px，零渐变背景、零荧光阴影。
+ */
+
+:root {
+  --co-bg: #f6f6f3;
+  --co-surface: #ffffff;
+  --co-well: #ecebe6;
+  --co-secondary: #f2f1ec;
+  --co-v2-tint: #f5f5f2;
+  --co-v2-divider: #eeeeea;
+  --co-v2-subtle: #787d78;
+  --co-fg: #181f1c;
+  --co-muted: #69706b;
+  --co-line: rgba(24, 31, 28, 0.085);
+  --co-line-strong: rgba(24, 31, 28, 0.14);
+  --co-control: rgba(24, 31, 28, 0.16);
+  --co-primary: #1a4d3e;
+  --co-primary-hover: #133b2f;
+  --co-success: #1d5c3f;
+  --co-success-bg: #ebf5ef;
+  --co-warning: #805212;
+  --co-warning-bg: #fcf4e4;
+  --co-danger: #9a2f37;
+  --co-danger-bg: #fcedef;
+
+  --co-sidebar: 224px;
+  --co-radius-lg: 12px;
+  --co-radius-md: 8px;
+  --co-radius-sm: 7px;
+  --co-title: 20px;
+  --co-h2: 15px;
+  --co-text-base: 13.5px;
+  --co-text-sm: 12px;
+  --co-shadow-card: 0 1px 2px rgba(18, 24, 21, 0.03), 0 0 0 1px var(--co-line);
+  --co-shadow-dialog: 0 24px 64px rgba(18, 24, 21, 0.18);
+}
+
+body {
+  background: var(--co-bg);
+  color: var(--co-fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", sans-serif;
+  font-size: var(--co-text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 1. 严格四档字号与数字排版 */
+h1, .dept-shell .top h1, .director-shell .top h1 {
+  font-size: var(--co-title);
+  font-weight: 640;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--co-fg);
+}
+
+h2, .panel h2, .dir-region-head h2, .nw-station-grid > .panel h2, .dept-operation-panel .panel-head h2 {
+  font-size: var(--co-h2);
+  font-weight: 610;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  color: var(--co-fg);
+}
+
+h3, .dir-todo h3, .nw-resident h3, .aw-activity h3 {
+  font-size: var(--co-text-base);
+  font-weight: 590;
+  line-height: 1.45;
+  color: var(--co-fg);
+}
+
+.sub, small, .muted, .dir-source, .dir-small, .dir-time {
+  font-size: var(--co-text-sm);
+  color: var(--co-muted);
+  line-height: 1.45;
+}
+
+/* 2. 登录页：极简质感居中登录卡 */
+.login-wrap {
+  max-width: 460px;
+  margin: 7vh auto;
+  padding: 20px;
+}
+
+.login-head {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.login-wrap .brand {
+  padding: 0;
+}
+
+.login-card {
+  padding: 28px 30px;
+  border-radius: 14px;
+  border: 1px solid var(--co-line);
+  background: var(--co-surface);
+  box-shadow: 0 12px 36px rgba(18, 24, 21, 0.055);
+}
+
+.login-card h1 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.login-card .form-grid {
+  gap: 12px;
+}
+
+.login-card input {
+  min-height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--co-line-strong);
+  padding: 8px 12px;
+  background: #fbfbf9;
+}
+
+.login-card button[type="submit"] {
+  min-height: 40px;
+  border-radius: 8px;
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.login-demo-block {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--co-v2-divider);
+}
+
+.login-demo-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--co-muted);
+  letter-spacing: 0.03em;
+  margin-bottom: 10px;
+}
+
+.login-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.login-role-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 9px 11px;
+  border-radius: 8px;
+  border: 1px solid var(--co-line);
+  background: #fafaf8;
+  text-align: left;
+  min-height: 0;
+}
+
+.login-role-btn strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--co-fg);
+}
+
+.login-role-btn span {
+  font-size: 11px;
+  color: var(--co-muted);
+}
+
+/* 3. 侧边栏：质感浅石抽屉 + 左侧墨绿指示条 */
+.shell, .dept-shell {
+  grid-template-columns: var(--co-sidebar) minmax(0, 1fr);
+}
+
+.sidebar, .dept-shell .sidebar {
+  background: #f1f0eb;
+  border-right: 1px solid var(--co-line);
+  padding: 18px 12px 14px;
+  gap: 12px;
+}
+
+.dept-shell .brand {
+  padding: 2px 8px 12px;
+  border-bottom: 1px solid rgba(24, 31, 28, 0.06);
+}
+
+.dept-shell .brandmark, .brandmark {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  font-family: ui-sans-serif, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--co-primary);
+  color: #ffffff;
+  border: 1px solid var(--co-primary);
+  border-radius: 7px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.dept-shell .brand strong {
+  font-size: 13.5px;
+  font-weight: 640;
+  letter-spacing: -0.01em;
+}
+
+.dept-shell .brand small {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: #818782;
+}
+
+.ui-desktop-collapse {
+  min-height: 28px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--co-muted);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--co-line);
+  border-radius: var(--co-radius-sm);
+  margin-top: 0;
+}
+
+.dept-shell .dept-nav-label {
+  margin: 10px 8px 2px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #8a908b;
+}
+
+.dept-shell .sidebar nav,
+.portal-nav-entry {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+}
+
+.dept-shell .sidebar nav button,
+.portal-nav-entry button,
+.sidebar nav button {
+  position: relative;
+  min-height: 34px;
+  padding: 7px 11px;
+  border-radius: var(--co-radius-sm);
+  border: 1px solid transparent;
+  background: transparent;
+  color: #4a544f;
+  font-size: var(--co-text-base);
+  font-weight: 500;
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.dept-shell .sidebar nav button.active,
+.portal-nav-entry button.active,
+.sidebar nav button.active {
+  background: var(--co-surface);
+  border-color: rgba(24, 31, 28, 0.07);
+  color: var(--co-fg);
+  font-weight: 610;
+  box-shadow: 0 1px 3px rgba(18, 24, 21, 0.06);
+}
+
+.dept-shell .sidebar nav button.active::before,
+.portal-nav-entry button.active::before,
+.sidebar nav button.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  bottom: 7px;
+  width: 2.5px;
+  background: var(--co-primary);
+  border-radius: 0 2px 2px 0;
+}
+
+.dept-shell .side-bottom {
+  margin-top: auto;
+  padding: 12px 8px 2px;
+  border-top: 1px solid rgba(24, 31, 28, 0.06);
+  font-size: 12px;
+}
+
+.ui-facility-name {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #505853;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.dept-shell .side-bottom details {
+  margin-top: 2px;
+  border: 0;
+}
+
+.dept-shell .side-bottom summary {
+  min-height: 26px;
+  padding: 4px 2px;
+  font-size: 12px;
+  font-weight: 540;
+  color: var(--co-muted);
+  margin: 0;
+}
+
+.dept-shell .side-bottom details button {
+  min-height: 28px;
+  padding: 4px 8px;
+  margin-top: 2px;
+  font-size: 12px;
+  text-align: left;
+  border-color: transparent;
+  background: transparent;
+}
+
+/* 4. 顶栏、环境微标与口径隐形化（不再出现牛皮癣小灰块） */
+.main, .dept-shell .main, .director-shell .main {
+  padding: 22px 32px 36px;
+  max-width: 1440px;
+}
+
+.top, .dept-shell .top, .director-shell .top {
+  min-height: 44px;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--co-line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.top .overline {
+  display: none;
+}
+
+.ui-environment {
+  margin: -6px 0 10px;
+  font-size: 11.5px;
+}
+
+.ui-environment:not([open]) {
+  display: flex;
+  justify-content: flex-end;
+  margin: -10px 0 4px;
+}
+
+.ui-environment > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  font-size: 11px;
+  color: rgba(24, 31, 28, 0.38);
+  padding: 1px 4px;
+  margin: 0;
+  min-height: 20px;
+  border: 0;
+  background: transparent;
+}
+
+.ui-environment > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ui-environment > summary::before {
+  content: "ⓘ";
+  font-size: 11px;
+}
+
+.ui-environment[open] {
+  background: var(--co-surface);
+  border: 1px solid var(--co-line);
+  border-radius: var(--co-radius-md);
+  padding: 10px 14px;
+  margin: 0 0 14px;
+}
+
+/* 面板内口径折叠器：改为极轻量无框淡灰文字微链 */
+.ui-source-details {
+  margin-top: 8px;
+  font-size: 11.5px;
+}
+
+.ui-source-details > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  list-style: none;
+  min-height: 20px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(24, 31, 28, 0.42);
+  font-size: 11px;
+}
+
+.ui-source-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ui-source-details > summary::before {
+  content: "口径 · ";
+  opacity: 0.8;
+}
+
+/* 5. 分段式导航轨道（Segmented Control Track） */
+.dept-tabs,
+.dept-logistics-home .dept-tabs,
+.sw-nav,
+.nw-nav,
+.aw-nav,
+.dir-tabs,
+.dept-view-toggle,
+.dept-schedule-scopes {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-width: none;
+  scroll-snap-type: inline proximity;
+  padding: 3px;
+  gap: 2px;
+  margin: 0 0 18px;
+  background: var(--co-well);
+  border: 1px solid rgba(24, 31, 28, 0.06);
+  border-radius: 9px;
+}
+
+.dept-tabs:has(> button:only-child) {
+  display: none;
+}
+
+.dir-tabs {
+  margin: 4px 0 12px;
+}
+
+.dept-view-toggle,
+.dept-schedule-scopes {
+  margin: 0;
+}
+
+.dept-tabs::-webkit-scrollbar,
+.sw-nav::-webkit-scrollbar,
+.nw-nav::-webkit-scrollbar,
+.aw-nav::-webkit-scrollbar,
+.dir-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.dept-tabs button,
+.dept-logistics-home .dept-tabs button,
+.sw-nav button,
+.nw-nav button,
+.aw-nav button,
+.dir-tabs button,
+.dept-view-toggle button,
+.dept-schedule-scopes button {
+  position: relative;
+  flex: none;
+  scroll-snap-align: start;
+  min-height: 30px;
+  padding: 5px 13px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--co-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  box-shadow: none;
+  white-space: nowrap;
+}
+
+.dept-tabs button.active,
+.dept-logistics-home .dept-tabs button.active,
+.sw-nav button.active,
+.sw-nav button[aria-current="page"],
+.nw-nav button.primary,
+.nw-nav button[aria-current="page"],
+.aw-nav button.active,
+.aw-nav button[aria-current="page"],
+.dir-tabs button.active,
+.dir-tabs button[aria-pressed="true"],
+.dept-view-toggle button.active,
+.dept-schedule-scopes button.active {
+  background: var(--co-surface);
+  color: var(--co-fg);
+  border-color: rgba(24, 31, 28, 0.07);
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(18, 24, 21, 0.07);
+}
+
+.dept-tabs button.active::after,
+.sw-nav button[aria-current="page"]::after,
+.nw-nav button[aria-current="page"]::after,
+.aw-nav button[aria-current="page"]::after,
+.dir-tabs button[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 10px 1px;
+  border-block-end: 2px solid var(--co-primary);
+  border-radius: 1px;
+}
+
+/* 6. 控件质感与组块化封装（柔化硬边框，主次拉开） */
+button {
+  min-height: 32px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--co-radius-sm);
+  border: 1px solid var(--co-line-strong);
+  background: var(--co-surface);
+  color: var(--co-fg);
+  box-shadow: 0 1px 1px rgba(18, 24, 21, 0.025);
+}
+
+button.small {
+  min-height: 28px;
+  padding: 4px 10px;
+  font-size: var(--co-text-sm);
+}
+
+button.primary {
+  background: var(--co-primary);
+  border-color: var(--co-primary);
+  color: #ffffff;
+  font-weight: 560;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 1px 2px rgba(18, 24, 21, 0.08);
+}
+
+/* 表格和列表内次级按钮去硬框化，只留柔和浅底，大幅降低页面视觉噪音 */
+td button:not(.primary):not(.link),
+.nw-task button:not(.primary),
+.aw-activity button:not(.primary),
+.sw-item button:not(.primary),
+.nw-focus button:not(.primary) {
+  background: var(--co-secondary);
+  border-color: transparent;
+  box-shadow: none;
+  color: #2f3834;
+}
+
+.ui-toolbar,
+.top .actions,
+.panel-head > .actions {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ui-btn-group {
+  display: inline-flex;
+  align-items: center;
+  background: var(--co-surface);
+  border: 1px solid var(--co-line-strong);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(18, 24, 21, 0.03);
+  overflow: hidden;
+}
+
+.ui-btn-group > button,
+.ui-btn-group > .chip,
+.top .ui-btn-group > .chip,
+.dept-shell .ui-btn-group > .chip {
+  border: 0;
+  border-right: 1px solid var(--co-line);
+  border-radius: 0;
+  margin: 0;
+  min-height: 30px;
+  padding: 5px 11px;
+  font-size: var(--co-text-sm);
+  background: transparent;
+  box-shadow: none;
+}
+
+.ui-btn-group > .chip,
+.top .ui-btn-group > .chip,
+.dept-shell .ui-btn-group > .chip {
+  display: inline-flex;
+  align-items: center;
+  background: #f5f4f0;
+  color: var(--co-fg);
+  font-weight: 600;
+}
+
+.ui-btn-group > *:last-child {
+  border-right: 0;
+}
+
+.ui-btn-group > button.active,
+.ui-btn-group > button.primary {
+  background: var(--co-primary);
+  color: #ffffff;
+  font-weight: 580;
+}
+
+.ui-toolbar-sep {
+  display: inline-block;
+  min-block-size: 16px;
+  border-inline-start: 1px solid var(--co-line-strong);
+}
+
+/* 7. 面板与内部子区块：大呼吸留白 + 去嵌套硬框 */
+.panel,
+.dir-region,
+.dept-v2-stat,
+.stat {
+  background: var(--co-surface);
+  border: 1px solid var(--co-line);
+  border-radius: var(--co-radius-lg);
+  padding: 20px 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 2px rgba(18, 24, 21, 0.025);
+}
+
+.dept-v2-stat strong,
+.stat strong,
+#dir-stats-body .dir-census strong {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--co-v2-divider);
+}
+
+/* 院长台极简化打磨 */
+.dir-welcome h2 {
+  font-size: 22px;
+  font-weight: 640;
+  letter-spacing: -0.02em;
+}
+
+.dir-demo-label {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--co-primary);
+  font-size: 11.5px;
+  font-weight: 560;
+  margin-bottom: 8px;
+}
+
+.dir-demo-label::before {
+  content: "● ";
+  font-size: 9px;
+  vertical-align: 1px;
+}
+
+#dir-stats-body .dir-census {
+  background: #f6f6f3;
+  border: 0;
+  border-radius: var(--co-radius-md);
+  padding: 14px 36px 14px 16px;
+  margin-bottom: 10px;
+}
+
+#dir-stats-body .dir-census > .dir-icon {
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#dir-stats-body .dir-stat-lines {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#dir-stats-body .dir-stat-line {
+  background: #f6f6f3;
+  border: 0;
+  border-radius: var(--co-radius-md);
+  padding: 10px 14px;
+  min-height: 44px;
+}
+
+.dir-zone-pill {
+  background: #f6f6f3;
+  border: 0;
+  border-radius: var(--co-radius-md);
+  padding: 10px 12px;
+}
+
+.dir-quick-nav {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dir-quick-nav button {
+  border: 0;
+  border-radius: var(--co-radius-md);
+  background: #f6f6f3;
+  padding: 11px 14px;
+  box-shadow: none;
+}
+
+/* 需要处理动作网格：柔和浅底无硬框 */
+.sw-needs,
+.aw-needs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  margin: 8px 0 4px;
+}
+
+.sw-needs button,
+.aw-needs button {
+  width: 100%;
+  justify-content: space-between;
+  text-align: left;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: var(--co-radius-md);
+  background: #f6f6f3;
+  color: var(--co-fg);
+  font-size: var(--co-text-sm);
+  font-weight: 540;
+  box-shadow: none;
+}
+
+/* 筛选条与表格 */
+.dept-filter,
+.sw-filter,
+.nw-filter,
+.aw-filter,
+.filters {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 14px;
+  margin: 0 0 14px;
+  background: #f8f8f5;
+  border: 0;
+  border-radius: var(--co-radius-md);
+}
+
+.dept-operation-panel .dept-filter {
+  border-bottom: 0;
+  padding: 10px 14px;
+  margin: 0 0 14px;
+}
+
+.dept-filter label,
+.sw-filter label,
+.nw-filter label,
+.aw-filter label,
+.filters label {
+  font-size: 11.5px;
+  font-weight: 560;
+  color: var(--co-muted);
+  gap: 4px;
+}
+
+.dept-filter input,
+.dept-filter select,
+.sw-filter input,
+.sw-filter select,
+.nw-filter input,
+.nw-filter select,
+.aw-filter input,
+.aw-filter select,
+.filters input,
+.filters select {
+  min-height: 32px;
+  padding: 5px 10px;
+  font-size: 13px;
+  border: 1px solid var(--co-line-strong);
+  border-radius: 6px;
+  background: var(--co-surface);
+}
+
+table {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+th {
+  background: transparent;
+  color: var(--co-muted);
+  font-size: 11.5px;
+  font-weight: 580;
+  letter-spacing: 0.02em;
+  padding: 10px 12px;
+  border-top: 0;
+  border-bottom: 1px solid var(--co-line);
+}
+
+td {
+  padding: 13px 12px;
+  border-bottom: 1px solid var(--co-v2-divider);
+  vertical-align: middle;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 550;
+  background: #f1f0eb;
+  border: 0;
+  color: #3a433f;
+}
+
+.chip.warn {
+  background: var(--co-warning-bg);
+  color: var(--co-warning);
+}
+
+.chip.red {
+  background: var(--co-danger-bg);
+  color: var(--co-danger);
+}
+
+/* 护理工作台顶栏双岗切换器 */
+.nw-modes {
+  background: var(--co-surface);
+  border: 1px solid var(--co-line);
+  border-radius: var(--co-radius-lg);
+  padding: 12px 18px;
+  margin-bottom: 14px;
+}
+
+.nw-modes > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nw-modes .ui-source-details {
+  margin-top: 0;
+}
+
+/* 第 8 模块右侧同库协同卡片去边框留白 */
+.portal-sync-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 12px 0 18px;
+}
+
+.portal-sync-card {
+  border: 0;
+  border-radius: var(--co-radius-md);
+  padding: 14px;
+  background: #f6f6f3;
+}
+
+.portal-sync-card strong {
+  display: block;
+  font-size: 13px;
+  color: var(--co-fg);
+  margin-bottom: 4px;
+}
+
+.portal-sync-card p {
+  font-size: 12px;
+  color: var(--co-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 交互动效与媒体查询保护 */
+@media (hover: hover) {
+  button:hover:not(:disabled) {
+    background: var(--co-secondary);
+    border-color: var(--co-control);
+  }
+  button.primary:hover:not(:disabled) {
+    background: var(--co-primary-hover);
+    border-color: var(--co-primary-hover);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+  .portal-primary-cta:hover:not(:disabled) {
+    background: #b12420;
+    border-color: #b12420;
+  }
+  .portal-outline-btn:hover:not(:disabled) {
+    background: #efe8dc;
+    border-color: #30251f;
+  }
+  .ui-btn-group > button:hover:not(:disabled):not(.active):not(.primary) {
+    background: #f7f7f4;
+  }
+  .dept-shell .sidebar nav button:hover:not(.active),
+  .portal-nav-entry button:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--co-fg);
+  }
+  tbody tr:hover td {
+    background: #fafaf7;
+  }
+  .dir-quick-nav button:hover,
+  .sw-needs button:hover,
+  .aw-needs button:hover,
+  .login-role-btn:hover {
+    background: #ecebe5;
+  }
+  .ui-environment > summary:hover,
+  .ui-source-details > summary:hover {
+    color: var(--co-fg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button,
+  .chip,
+  .dir-quick-nav button,
+  .login-role-btn {
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+  }
+}
+
+@media (forced-colors: active) {
+  .ui-toolbar-sep {
+    border-inline-start-color: ButtonText;
+  }
+  .dept-tabs button.active,
+  .sw-nav button[aria-current="page"],
+  .nw-nav button[aria-current="page"],
+  .aw-nav button[aria-current="page"],
+  .dir-tabs button[aria-pressed="true"] {
+    outline: 2px solid Highlight;
+  }
+}
+
+@media (max-width: 900px) {
+  .dir-ccrc-zones,
+  #dir-stats-body .dir-stat-lines {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .portal-sync-grid,
+  .sw-needs,
+  .aw-needs {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .main, .dept-shell .main, .director-shell .main {
+    padding: 14px;
+  }
+  .login-demo-grid {
+    grid-template-columns: 1fr;
+  }
+  .ui-btn-group {
+    flex-wrap: wrap;
+  }
+  .ui-btn-group > button,
+  button,
+  button.small {
+    min-height: 44px;
+  }
+  .dir-quick-nav,
+  .dir-ccrc-zones,
+  #dir-stats-body .dir-stat-lines {
+    grid-template-columns: 1fr;
+  }
+}
