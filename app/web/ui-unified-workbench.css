@@ -704,6 +704,10 @@ td button:not(.primary):not(.link),
 }
 
 .dir-demo-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
   border: 0;
   background: transparent;
   padding: 0;
@@ -714,9 +718,9 @@ td button:not(.primary):not(.link),
 }
 
 .dir-demo-label::before {
-  content: "● ";
+  content: "●";
   font-size: 9px;
-  vertical-align: 1px;
+  line-height: 1;
 }
 
 #dir-stats-body .dir-census {

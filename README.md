@@ -4,7 +4,7 @@
 
 ## 快速启动
 
-双击根目录 **`启动太保家园Demo.command`**，或在终端执行：
+双击根目录 **`启动栖云颐养Demo.command`**，或在终端执行：
 
 ```bash
 ./app/.venv/bin/python app/scripts/start_taibao_demo.py --port 8765
